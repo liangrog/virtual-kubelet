@@ -12,7 +12,7 @@ type Config struct {
 }
 
 func NewConfig(cfg string) (*Config, error) {
-	data, err := ioutil.ReadFile(file)
+	data, err := ioutil.ReadFile(cfg)
 	if err != nil {
 		return nil, err
 	}

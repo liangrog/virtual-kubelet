@@ -186,7 +186,8 @@ func (p *PocProvider) GetPod(ctx context.Context, namespace, name string) (*core
 		return nil, errdefs.NotFoundf("pod %s/%s is not found", namespace, name)
 	}
 
-	return UpdateToLocalPod(pod)
+	//	return UpdateToLocalPod(pod)
+	return pod, nil
 }
 
 // GetContainerLogs retrieves the logs of a container by name from the provider.
@@ -230,11 +231,12 @@ func (p *PocProvider) GetPods(ctx context.Context) ([]*corev1.Pod, error) {
 	var result []*corev1.Pod
 
 	for _, pod := range list.Items {
-		pd, err := UpdateToLocalPod(&pod)
-		if err != nil {
-			return result, err
-		}
-		result = append(result, pd)
+		/*
+			pd, err := UpdateToLocalPod(&pod)
+			if err != nil {
+				return result, err
+			}*/
+		result = append(result, &pod)
 	}
 
 	log.Printf("Responding to GetPods: %+v.\n", result)
