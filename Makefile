@@ -37,6 +37,7 @@ build: OUTPUT_DIR ?= bin
 build: authors
 	@echo "Building..."
 	$Q CGO_ENABLED=0 go build --tags '$(shell scripts/process_build_tags.sh $(build_tags) $(VK_BUILD_TAGS))' -ldflags '-extldflags "-static"' -o $(OUTPUT_DIR)/$(binary) $(if $V,-v) $(VERSION_FLAGS) ./cmd/$(binary)
+	$Q GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build --tags '$(shell scripts/process_build_tags.sh $(build_tags) $(VK_BUILD_TAGS))' -ldflags '-extldflags "-static"' -o $(OUTPUT_DIR)/mac/$(binary) $(if $V,-v) $(VERSION_FLAGS) ./cmd/$(binary)
 
 .PHONY: tags
 tags:
